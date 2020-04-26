@@ -1,0 +1,14 @@
+# InfluxDB connection information
+connection:
+  url: http://127.0.0.1:8086
+  username: ""
+  password: ""
+  database: "bungeecoord"
+
+# Interval to fetch new data to send to influx
+update_interval_seconds: 300 #default: 5 min
+# Name of the measurement in the influxdb database
+measurement_name: "bungeecoord"
+
+# Any extra tags to add (Not Implemented)
+tags: []
