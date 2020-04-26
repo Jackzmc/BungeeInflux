@@ -1,6 +1,5 @@
 package me.jackz.bungeeinflux.bungeeinflux;
 
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
@@ -36,19 +35,19 @@ public final class BungeeInflux extends Plugin {
             String username = config.getString("connection.username", "");
             String password = config.getString("connection.password", "");
             String database = config.getString("connection.database", "bungeecoord");
-            String measurement_name = config.getString("measurement_name","bungeecoord");
+            boolean useGzip = config.getBoolean("gzip",false);
+            measurement_name = config.getString("measurement_name","bungeecoord");
             int update_interval = config.getInt("update_interval_seconds",300);
-            getLogger().info(String.format("Connecting to InfluxDB server %s on %s", url, database));
 
-            influxDB = InfluxDBFactory.connect(url, username, password);
-            influxDB.query(new Query("CREATE DATABASE " + database));
-            influxDB.setDatabase(database);
+            connectInflux(url, username, password, database);
 
             if (useGzip) {
                 influxDB.enableGzip();
             } else {
                 influxDB.disableGzip();
             }
+
+            getProxy().getPluginManager().registerCommand(this, new MainCommand(this));
 
             getProxy().getScheduler().schedule(this, this::updateProxyStatuses, 0L, update_interval, TimeUnit.SECONDS);
         }catch(Exception ex) {
@@ -61,6 +60,26 @@ public final class BungeeInflux extends Plugin {
         // Plugin shutdown logic
         influxDB.close();
         getProxy().getScheduler().cancel(this);
+    }
+
+    public void connectInflux(String url, String username, String password, String database) {
+        influxDB = InfluxDBFactory.connect(url, username, password);
+        getLogger().info("Connected to InfluxDB server " + url + " on " + database);
+
+        influxDB.query(new Query("CREATE DATABASE " + database));
+        influxDB.setDatabase(database);
+
+        influxDB.enableBatch(BatchOptions.DEFAULTS);
+    }
+    public void disconnectInflux() {
+        influxDB.close();
+    }
+
+    public void initialize() {
+        influxDB.close();
+        getProxy().getScheduler().cancel(this);
+
+        onEnable();
     }
 
     private void saveDefaultResource(String filename, boolean force) throws IOException {
@@ -99,6 +118,7 @@ public final class BungeeInflux extends Plugin {
                 }
             });
         }
+
     }
 
     public static InfluxDB getInfluxDB() {
