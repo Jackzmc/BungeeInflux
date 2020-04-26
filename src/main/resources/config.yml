@@ -9,6 +9,8 @@ connection:
 update_interval_seconds: 300 #default: 5 min
 # Name of the measurement in the influxdb database
 measurement_name: "bungeecoord"
+# Should gzip support be enabled? (true -> ON, false -> OFF)
+gzip: true
 
 # Any extra tags to add (Not Implemented)
 tags: []

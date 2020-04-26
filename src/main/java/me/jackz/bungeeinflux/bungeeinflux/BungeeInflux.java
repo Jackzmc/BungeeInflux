@@ -44,7 +44,11 @@ public final class BungeeInflux extends Plugin {
             influxDB.query(new Query("CREATE DATABASE " + database));
             influxDB.setDatabase(database);
 
-            influxDB.enableBatch(BatchOptions.DEFAULTS);
+            if (useGzip) {
+                influxDB.enableGzip();
+            } else {
+                influxDB.disableGzip();
+            }
 
             getProxy().getScheduler().schedule(this, this::updateProxyStatuses, 0L, update_interval, TimeUnit.SECONDS);
         }catch(Exception ex) {
