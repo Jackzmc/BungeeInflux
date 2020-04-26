@@ -8,17 +8,17 @@ import net.md_5.bungee.api.plugin.Command;
 
 public class MainCommand extends Command {
     BungeeInflux plugin;
-
     public MainCommand(BungeeInflux plugin) {
-        super("bungeeinflux","bungeeinflux.command","friend");
+        super("bungeeinflux","bungeeinflux.command");
         this.plugin = plugin;
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
         if(args.length == 0 || args[0].toLowerCase().equalsIgnoreCase("help")) {
-            BaseComponent[] textComponent = new ComponentBuilder("§6BungeeInflux").append("\n&e/bungeeinflux reload&& - Reload the config.yml").create();
+            BaseComponent[] textComponent = new ComponentBuilder("§6BungeeInflux").append("\n§e/bungeeinflux reload§7 - Reload the config.yml").create();
             sender.sendMessage(textComponent);
+            return;
         }
         switch(args[0].toLowerCase()) {
             case "reload": {

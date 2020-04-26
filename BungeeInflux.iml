@@ -38,6 +38,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.netty:netty-resolver:4.1.49.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.25" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.guava:guava:21.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bstats:bstats-bungeecord-lite:1.7" level="project" />
     <orderEntry type="library" name="Maven: org.influxdb:influxdb-java:2.18" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.retrofit2:retrofit:2.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.retrofit2:converter-moshi:2.8.1" level="project" />

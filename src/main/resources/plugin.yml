@@ -1,3 +1,4 @@
 name: BungeeInflux
 version: ${project.version}
 main: me.jackz.bungeeinflux.bungeeinflux.BungeeInflux
+author: Jackzmc

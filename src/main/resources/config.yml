@@ -1,8 +1,9 @@
 # InfluxDB connection information
+# IF authentication is disabled, you can't leave the fields empty, provide a dummy value.
 connection:
-  url: http://127.0.0.1:8086
-  username: ""
-  password: ""
+  url: "http://127.0.0.1:8086"
+  username: "user"
+  password: "user"
   database: "bungeecoord"
 
 # Interval to fetch new data to send to influx
@@ -11,6 +12,10 @@ update_interval_seconds: 300 #default: 5 min
 measurement_name: "bungeecoord"
 # Should gzip support be enabled? (true -> ON, false -> OFF)
 gzip: true
-
 # Any extra tags to add (Not Implemented)
-tags: []
+# Is a key value pair ( tagname: tagvalue)
+tags:
+  example: value
+#  network: bungeenetwork
+# Enable or disable bstats metrics
+metrics: true
