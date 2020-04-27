@@ -81,6 +81,7 @@ public final class BungeeInflux extends Plugin {
             //register command & scheduler
             getProxy().getPluginManager().registerCommand(this, new MainCommand(this));
             getProxy().getScheduler().schedule(this, this::updateProxyStatuses, 0L, update_interval, TimeUnit.SECONDS);
+            //getProxy().registerChannel("bungeecoord");
         }catch(IOException ex) {
             getLogger().severe("An exception occurred while initializing: ");
             ex.printStackTrace();
@@ -149,9 +150,8 @@ public final class BungeeInflux extends Plugin {
                         .tag(tagsMap)
                         .addField("players", info.getPlayers().size())
                         .build());
-                }else{
-                    getLogger().warning("Ping server " + info.getName() + " failed: " + error.getMessage());
                 }
+                //server is offline if error, probably
             });
         }
     }
